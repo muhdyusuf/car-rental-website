@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import CarCard from '../../components/CarCard'
 import {db} from '../../utils/firebaseConfig'
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { Container } from '@chakra-ui/react';
+import Navbar from '../../components/Navbar';
 
 
 const Home = () => {
@@ -26,9 +28,12 @@ const Home = () => {
     }
   },[])
   return (
-    <div>
+    <Container p="0">
+      <Navbar/>
+      <div>
       {availableCar.map(car=><CarCard car={car}/>)}
     </div>
+    </Container>
   )
 }
 
