@@ -5,7 +5,7 @@ import './CarCard.css'
 import { motion, isValidMotionProp } from 'framer-motion';
 import { Card, CardBody,Text,Image, CardFooter, Grid, GridItem,Button, Heading,shouldForwardProp,chakra, Container,Box, EASINGS, Center} from '@chakra-ui/react'
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const ChakraBox = chakra(motion.div, {
     /**
@@ -21,28 +21,23 @@ shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
 });
 
 const CarCard = ({car}) => {
-    console.log(car)
+    
     const navigate=useNavigate()
-    const [isActive,setActive]=useState()
+   
 
   return (
-    <Container p="0">
+  
         <ChakraBox
             display='grid'
-            gridTemplateRows='300px 1fr 100px'
-            height="500px"
-            bg="teal"
+            gridTemplateRows='3fr 1.2fr 1fr'
+            bg={car.bg}
             borderRadius="1rem"
             overflow="hidden"
-            animate={isActive?{
-                height:"100vh"
-                
-            }:{
-                width:"100vw"
+            height="100%"
+            sx={{
+                aspectRatio:"1/1.2"
             }}
-            transition={{
-                duration:1
-            }}
+           
         >
             <Box overflow="hidden" position="relative">
                 <ChakraImg
@@ -51,15 +46,12 @@ const CarCard = ({car}) => {
                     
                     initial={{
                         position:"absolute",
-                        top:"-30%",
-                        right:"-20%",
+                        top:"-20%",
+                        right:"-15%",
+                        scale:"1.2"
              
                     }}
-                    animate={isActive?{
-                        top:"-30%",
-                        right:"0%",
-
-                    }:{}}
+                 
                     
                     
                 />
@@ -67,97 +59,55 @@ const CarCard = ({car}) => {
 
             </Box>
          
-            <Box>
-                <Heading as="h2">
-                    perodua
+            <Box 
+                px="1.5rem"
+            >
+                <Heading 
+                    as="h3"
+                    size="2xl"
+                    textTransform="capitalize"
+                >
+                    {car.manufacturer}
                 </Heading>
-                <Text>
-                    Axia 2022
+                <Text  
+                    textTransform="capitalize"
+                    fontSize="2xl"
+                >
+                    {car.model}
                 </Text>
               
             </Box>
             <Grid   
-                templateColumns="3fr 2fr"
+                width="100%"
+                templateColumns="3fr 3fr"
                 height="100%"
              
             > 
                     <GridItem>
-                        <Text    
+                        <Center    
                             height="100%"
                             width="100%"
                             padding=".5rem"
                         >
-                            Rm 
-                            <Text as="span" fontWeight="bold">100</Text>
-                        </Text>
+                           {`Rm${car.rate} / day`}
+                        </Center>
                     </GridItem>
                     <GridItem >
                         <Button
-                        height="100%"
-                        width="100%"
-                        borderRadius="1rem 0 0 0"
-                        colorScheme="teal"
-                        onClick={()=>navigate("/car")}
-                        
-                    >
-                        Book
-                        <AiOutlineArrowRight/>
+                            height="100%"
+                            width="100%"
+                            borderRadius="1rem 0 0 0"
+                            colorScheme="yellow"
+                            onClick={()=>navigate(`/car/${car.id}`)}     
+                        >
+                   
+                         <AiOutlineArrowRight fontSize={"2rem"}/>
                         </Button>
                     </GridItem>
             </Grid>
 
         </ChakraBox>
 
-
-
-
-
-
-    </Container>
-
-
-
-
-    // <Card className={isActive?"car-card active":"car-card"}>
-    //     <CardBody>
-    //         <Image src={axiaMerah} alt="axia merah" className='car-images'/>
-    //         <Text>
-    //             <Heading as='h3' fontSize="1rem">
-    //                 Perodua Axia
-    //             </Heading>
-    //         </Text>
-    //     </CardBody>
-    //     <CardFooter p='0' className='card-footer'>
-    //         <Grid 
-    //             templateColumns="1fr 1fr" 
-    //             gap="1rem" 
-    //             width="100%" 
-    //             p="0"
-                
-            
-    //         >
-    //             <GridItem>
-    //                 fsdfdsfa
-    //             </GridItem>
-    //             <GridItem>
-    //                 <Button 
-    //                     h="100%"
-    //                     borderRadius="1rem 0 0 0"
-    //                     width="100%"
-    //                     colorScheme="teal"
-    //                     onClick={()=>setActive(!isActive)}
-    //                 >
-    //                     Book
-    //                     <AiOutlineArrowRight/>
-    //                 </Button>
-    //             </GridItem>
-    //         </Grid>
-
-    //     </CardFooter>
-      
-        
-
-    // </Card>
   )
 }
 
