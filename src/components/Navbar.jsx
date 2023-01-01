@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import {GrHomeRounded} from 'react-icons/gr'
 import {RiUser3Line} from 'react-icons/ri'
 import {IoCarOutline} from 'react-icons/io5'
+import {CiMap} from 'react-icons/ci'
 
 function Navbar() {
     const {colorMode,toggleColorMode}=useColorMode()
@@ -16,7 +17,7 @@ function Navbar() {
             right="0"
             h="60px"
             w="100vw"
-            zIndex="99999"
+            zIndex="20"
             shadow="sm"
             bg="white"
             
@@ -45,19 +46,25 @@ function Navbar() {
                     <ListItem
                         fontSize="2rem"
                     >
-                        <Link to="/car">
+                        <Link to="/cars">
                             <IoCarOutline/>
                         </Link>
                     </ListItem>
+                    <ListItem
+                        fontSize="2rem"
+                    >
+                        {/* <Button onClick={toggleColorMode}>
+                        Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+                        </Button> */}
+                        <Link to="places">
+                            <CiMap/>
+                        </Link>
+
+                    </ListItem>
                     <ListItem 
                     >
-                        <Link to="/user/kkkn"><RiUser3Line/></Link>
+                        <Link to="user"><RiUser3Line/></Link>
                    </ListItem>
-                    <ListItem>
-                        <Button onClick={toggleColorMode}>
-                        Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
-                        </Button>
-                    </ListItem>
                 </UnorderedList>
             </Container>
         </Box>

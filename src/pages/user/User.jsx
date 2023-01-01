@@ -1,8 +1,32 @@
-import { Box, Circle, Container, Grid, GridItem, Heading, Text} from '@chakra-ui/react'
+import { Box, chakra, Circle, Container, Grid, GridItem, Heading, shouldForwardProp, Switch, Text, useColorMode} from '@chakra-ui/react'
 import React from 'react'
 import {AiOutlineSetting} from 'react-icons/ai'
+import { redirect, useNavigate } from 'react-router'
+import { useAuth } from '../../context/authContext'
+import { useEffect } from 'react'
+import { isValidMotionProp, motion } from 'framer-motion'
+
+import {MdOutlineNightlight,MdOutlineLightMode} from 'react-icons/md'
+
+const ChakraBox = chakra(motion.div, {
+    /**
+     * Allow motion props and non-Chakra props to be forwarded.
+     */
+    shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
+  });
 
 function User() {
+    const {colorMode,toggleColorMode}=useColorMode()
+    const {user}=useAuth()
+    const navigate=useNavigate()
+    useEffect(() => {
+      redirect("/login")
+    
+      return () => {
+        
+      }
+    }, [])
+    
   return (
     <Container 
        
@@ -45,11 +69,15 @@ function User() {
                 display="flex"
                 justifyContent="flex-end"
                 alignItems="flex-start"
-                
+                onClick={toggleColorMode}
+                fontSize="1.5rem" 
             >
-               <AiOutlineSetting
-                fontSize="2rem"
-               />
+               {colorMode==="light"?(
+                <MdOutlineNightlight/>
+               ):(
+                <MdOutlineLightMode/>
+               )}
+              
             </GridItem>
            
         </Grid>

@@ -98,7 +98,7 @@ const CarCard = ({car}) => {
                             width="100%"
                             borderRadius="1rem 0 0 0"
                             colorScheme="yellow"
-                            onClick={()=>navigate(`/car/${car.id}`)}     
+                            onClick={()=>navigate(`car/${car.id}`)}     
                         >
                    
                          <AiOutlineArrowRight fontSize={"2rem"}/>

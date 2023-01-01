@@ -1,12 +1,15 @@
+import React,{useEffect} from "react";
 import { doc } from "firebase/firestore";
 import {createContext, useContext, useState } from "react";
+import { db } from "../utils/firebaseConfig";
+import { getDoc } from "firebase/firestore";
 
 const CarContext=createContext()
 
-const useCarData=useContext(CarContext)
+const useCarData=()=>useContext(CarContext)
 
 
-const carContext = ({children}) => {
+const CarProvider = ({children}) => {
 
     const [cars,setCars]=useState([])
 
@@ -74,4 +77,4 @@ const carContext = ({children}) => {
     </CarContext.Provider>
   )
 }
-export default carContext
+export {useCarData,CarProvider}

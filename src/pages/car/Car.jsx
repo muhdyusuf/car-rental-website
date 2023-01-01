@@ -11,6 +11,7 @@ import {query,collection,getDocs,getDoc,doc} from 'firebase/firestore'
 
 import { storage } from '../../utils/firebaseConfig';
 import { db } from '../../utils/firebaseConfig';
+import ConfirmationModal from './ConfirmationModal';
 
 const ChakraBox = chakra(motion.div, {
     /**
@@ -43,7 +44,7 @@ const Car = () => {
         return ()=>{
 
         }
-    })
+    },[])
   
   
    
@@ -229,11 +230,9 @@ const Car = () => {
                             h="100%"
                             borderRadius="1rem 0 0 0"
                             colorScheme="yellow"
-                            onClick={()=>navigate("/rent")}
-
-                        >
-                            Book
-                            <AiOutlineArrowRight/>
+                            // onClick={()=>navigate("/rent")}
+                            >   
+                                <ConfirmationModal/>
                             </Button>
                         </GridItem>
                 </Grid>
