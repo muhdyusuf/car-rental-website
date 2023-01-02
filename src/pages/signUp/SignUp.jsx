@@ -115,8 +115,10 @@ export default function SignUp() {
                     <Button 
                         mt=".5rem"
                         w="100%"
-                        colorScheme="telegram"
+                        colorScheme="yellow"
+                        bg="yellow.300"
                         type="submit" 
+                        border=".2rem solid black"
                         onClick={onSubmit}
                         disabled={loading}
                         

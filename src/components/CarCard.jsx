@@ -34,8 +34,9 @@ const CarCard = ({car}) => {
             borderRadius="1rem"
             overflow="hidden"
             height="100%"
+            border=".2rem solid black"
             sx={{
-                aspectRatio:"1/1.2"
+                aspectRatio:"1/1.1"
             }}
            
         >
@@ -46,7 +47,7 @@ const CarCard = ({car}) => {
                     
                     initial={{
                         position:"absolute",
-                        top:"-20%",
+                        top:"-25%",
                         right:"-15%",
                         scale:"1.2"
              
@@ -62,18 +63,19 @@ const CarCard = ({car}) => {
             <Box 
                 px="1.5rem"
             >
-                <Heading 
-                    as="h3"
-                    size="2xl"
-                    textTransform="capitalize"
-                >
-                    {car.manufacturer}
-                </Heading>
+               
                 <Text  
                     textTransform="capitalize"
                     fontSize="2xl"
+                    as="b"
                 >
-                    {car.model}
+                    {car.manufacturer }
+                    <Text as="span" fontWeight="normal">
+                        {` ${car.model}`}
+                    </Text>
+                </Text>
+                <Text>
+                    Transmission : {car.transmission}
                 </Text>
               
             </Box>
@@ -88,8 +90,10 @@ const CarCard = ({car}) => {
                             height="100%"
                             width="100%"
                             padding=".5rem"
+                            fontWeight="bold"
+
                         >
-                           {`Rm${car.rate} / day`}
+                           {`Rm${car.rate} / Day`}
                         </Center>
                     </GridItem>
                     <GridItem >
@@ -97,8 +101,9 @@ const CarCard = ({car}) => {
                             height="100%"
                             width="100%"
                             borderRadius="1rem 0 0 0"
+                            bg="yellow.300"
                             colorScheme="yellow"
-                            onClick={()=>navigate(`car/${car.id}`)}     
+                            onClick={()=>navigate(`/car/${car.id}`)}     
                         >
                    
                          <AiOutlineArrowRight fontSize={"2rem"}/>

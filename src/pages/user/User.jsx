@@ -21,9 +21,7 @@ function User() {
     const navigate=useNavigate()
     useEffect(() => {
       redirect("/login")
-    
       return () => {
-        
       }
     }, [])
     
@@ -81,58 +79,59 @@ function User() {
             </GridItem>
            
         </Grid>
-        <Box p="1rem">
+        <Box p="1rem"
+            display="grid"
+            gridTemplateColumns="1fr"
+            rowGap="1rem"
+        >
             <Grid
-                templateColumns="2fr 2fr"
+               
                 gap="1rem"
-                height="150px"
                 width="100%"
-                border="1px"
+                border=".2rem solid black"
                 p=".5rem"
                 borderRadius="1rem"
                 bg="yellow.300"
             >
+                <GridItem>
+                    <Heading as="h2">Order Detail</Heading>
+                </GridItem>
                 <GridItem
-                    borderRight="1px"
+                    display="flex"
                 >
-                    <Heading 
-                        as="h3"
-                        size="md"
+                    <Box 
+                        width="40%"
+                        height="auto"
+                        bg="red.400"
+                        sx={{
+                            aspectRatio:"1/1"
+                        }}
                     >
-                        Current Order   
-                    </Heading>
-                    <Box
-                        h="100px"
-                        w="100px"
-                        bg="messenger.100"
-                    >
-                    
+
+                    </Box>
+                    <Box marginLeft="1rem">
+                        <Text>
+                            Perodua Alza
+                        </Text>
+                        <Text>
+                            Order ends
+                        </Text>
+                        <Box display="flex">
+                            <Text>12<Text as="span">h</Text></Text>
+                            <Text>00<Text as="span">m</Text></Text>
+                        </Box>
                     </Box>
                 </GridItem>
                 
-                <GridItem
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="space-between"
-                >
-                    <Text as="p" fontSize="md">
-                        Perodua alza
-                    </Text>
-                    <Box>
-                        <Text as="b" fontSize="2xl">
-                            Time Left
-                        </Text>
-                        <Text as="p" fontSize="2xl">
-                            24 : 00
-                        </Text>
-                    </Box>
-
-                </GridItem>
+                
+                
+                
             </Grid>
             <Grid
                 width="100%"
-                border="2px"
+                border=".2rem solid black"
                 borderRadius="1rem"
+                p=".5rem"
                 
             >
                 <GridItem as='h3'>

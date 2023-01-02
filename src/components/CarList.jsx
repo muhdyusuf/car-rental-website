@@ -29,19 +29,17 @@ const CarList = () => {
     }
   },[])
   return (
-    <Container p="4">
-        <Grid
-            templateColumns="1fr"
-            gap="1rem"
-        >
-            {availableCar.map(car=>{
-            return(
-                <GridItem key={uuidv4()} >
-                    <CarCard car={car}/>
-                </GridItem>
-            )})}
-        </Grid>
-    </Container>
+      <Grid
+          templateColumns="1fr"
+          gap="1rem"
+      >
+          {availableCar.map(car=>{
+          return(
+              <GridItem key={uuidv4()} >
+                  <CarCard car={car}/>
+              </GridItem>
+          )})}
+      </Grid>
   )
 }
 

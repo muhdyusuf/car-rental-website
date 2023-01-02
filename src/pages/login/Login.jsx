@@ -29,14 +29,16 @@ export default function Login() {
     <Container
         h="calc(100vh - 60px)"
         w="100%"
+    
+        
     >
         <Center
             w="100%"
             h="100%"
             display="flex"
             flexDirection="column"
-    
-        >
+            
+            >
             <Card
                 w="100%"
                 p="1rem"
@@ -94,8 +96,10 @@ export default function Login() {
                     <Button 
                         mt=".5rem"
                         w="100%"
-                        colorScheme="telegram"
+                        colorScheme="yellow"
+                        bg="yellow.300"
                         type="submit" 
+                        border=".2rem solid black"
                         onClick={onSubmit}
                         disabled={loading}
                         

@@ -19,6 +19,12 @@ const ChakraBox = chakra(motion.div, {
      */
     shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
   });
+  const ChakraImg = chakra(motion.img, {
+    /**
+     * Allow motion props and non-Chakra props to be forwarded.
+     */
+    shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
+  });
 
 const Car = () => {
     const navigate=useNavigate()
@@ -105,9 +111,10 @@ const Car = () => {
 
                     
                 >
-                    <motion.img
+                    <ChakraImg
                             src={carDetails.src}
                             alt="dasf"
+                          
 
                             animate={
                                 {  

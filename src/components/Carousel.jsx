@@ -1,70 +1,96 @@
-import { Box, Container } from '@chakra-ui/react'
+import { Box, Button, Container, Image, Link } from '@chakra-ui/react'
 import React from 'react'
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
+import {Link as RouterLink} from 'react-router-dom'
+
 const Carousel = () => {
     const settings = {
-        dots: false,
+        dots: true,
         infinite: true,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay:true,
-        arrows:false,
-        autoplaySpeed:3000,
-        background:"transparent"
-        
+        arrows:true,
+        autoplaySpeed:6000,
+        background:"transparent",
+     
       }
   return (
-    <Container
-        p="0"
-    >    
-        <Box>
-            <Slider 
-                {...settings}
-                
+   
+
+    <Slider 
+        {...settings}
+        
+    >
+        <Box
+            width="100%"
+            height="auto"
+            sx={{
+                aspectRatio:"3/2.5"
+            }}
+            borderRadius="md"
+            position="relative"
+            
+        >
+            <Image src='https://static01.nyt.com/images/2022/01/31/crosswords/31meme-wordplay/31meme-wordplay-jumbo.png?quality=75&auto=webp'
+            objectFit="cover"
+            boxSize="100%"
+            objectPosition="center"
+            />
+            <Link 
+                position="absolute"
+                top="0"
+                bottom={0}
+                margin="auto"
+                as={RouterLink}
+                to="/cars"
             >
-                <Box
-
-                    width="100%"
-                    height="auto"
-                    sx={{
-                        aspectRatio:"3/2.5"
-                    }}
-                    bg="teal.500"
-                    borderRadius="md"
-                   
-                />
-                 <Box
-
-                    width="100%"
-                    height="auto"
-                    sx={{
-                        aspectRatio:"3/2.5"
-                    }}
-                    bg="red.500"
-                    borderRadius="md"
-                   
-                />
-                 <Box
-
-                    width="100%"
-                    height="auto"
-                    sx={{
-                        aspectRatio:"3/2.5"
-                    }}
-                    bg="telegram.500"
-                    borderRadius="md"
-                   
-                />
-              
-                
-            </Slider>
+                hello buitch
+            </Link>
         </Box>
-    </Container>
+
+        <Box
+            width="100%"
+            height="auto"
+            sx={{
+                aspectRatio:"3/2.5"
+            }}
+            borderRadius="md"
+            
+        >
+            <Image src='https://static01.nyt.com/images/2022/01/31/crosswords/31meme-wordplay/31meme-wordplay-jumbo.png?quality=75&auto=webp'
+            objectFit="cover"
+            boxSize="100%"
+            objectPosition="center"
+            />
+        </Box>
+
+        <Box
+            width="100%"
+            height="auto"
+            sx={{
+                aspectRatio:"3/2.5"
+            }}
+            borderRadius="md"
+            
+        >
+            <Image src='https://static01.nyt.com/images/2022/01/31/crosswords/31meme-wordplay/31meme-wordplay-jumbo.png?quality=75&auto=webp'
+            objectFit="cover"
+            boxSize="100%"
+            objectPosition="center"
+            />
+        </Box>
+     
+        
+        
+    </Slider>
+
+
   )
 }
 

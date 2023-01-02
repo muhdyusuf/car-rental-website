@@ -38,7 +38,6 @@ function App() {
   return (
     <div className="App">
       <CarProvider>
-      <ChakraProvider>
         <Routes>
           {/* {user && (<Route path='/user/:userId' element={<User/>}/>)} */}
           <Route 
@@ -72,7 +71,6 @@ function App() {
         </Routes>
         
         <Navbar/>
-      </ChakraProvider>
       </CarProvider>
     </div>
   );

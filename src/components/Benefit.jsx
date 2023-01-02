@@ -5,8 +5,9 @@ import { Card, CardBody,Text,Image, CardFooter, Grid, GridItem,Button, Heading,s
 import { useNavigate, useParams } from 'react-router-dom';
 
 import {GrMoney,GrLocation} from 'react-icons/gr'
+import {TbZoomMoney} from 'react-icons/tb'
 
-import './benefit.css'
+// import './benefit.css'
 
 const ChakraBox = chakra(motion.div, {
     /**
@@ -47,29 +48,25 @@ const Benefit = ({car}) => {
    
 
   return (
-    <Box 
-        padding="2rem 0"
+    <Box
         ref={containerRef}
     >
-
         <ChakraBox
-            className='benefit-cont'
             display='grid'
-            gridTemplateColumns="200px"
-            borderRadius="1rem"
+            rowGap="1.5rem"
             overflow="hidden"
-       
             variants={container}
             initial="hidden"
             whileInView="show"
-          
         >
             
-            <ChakraBox variants={item}>
+            <ChakraBox variants={item}
+                display="flex"
+                alignItems="center"
+            >
                 <Circle 
-                    mb="1rem"
                     bg='blue.200'
-                    width="50%"
+                    width="clamp(100px,30%,100px)"
                     height="auto"
                     sx={{
                         aspectRatio:"1/1"
@@ -77,31 +74,23 @@ const Benefit = ({car}) => {
                 >
                     <GrMoney fontSize="3rem"/>
                 </Circle>
-                <Text size="md" textAlign="center">
-                    Value For Money
-                </Text>
+                <Box px="1rem" w="100%">
+                    <Text as="b" fontSize="lg" textAlign="center">
+                        Value For Money
+                    </Text>
+                    <Text>
+                        Know exactly what you’re paying
+                    </Text>
+                </Box>
             </ChakraBox>
-            <ChakraBox variants={item}>
+            <ChakraBox variants={item}
+                display="flex"
+                alignItems="center"
+            >
                 <Circle 
-                    mb="1rem"
-                    bg='red.200'
-                    width="50%"
-                    height="auto"
-                    sx={{
-                        aspectRatio:"1/1"
-                    }}
-                >
-                    <GrLocation fontSize="3rem"/>
-                </Circle>
-                <Text size="md" textAlign="center">
-                    Flexible Pickup Location
-                </Text>
-            </ChakraBox>
-            <ChakraBox variants={item}>
-                <Circle 
-                    mb="1rem"
+
                     bg='green.200'
-                    width="50%"
+                    width="clamp(100px,30%,100px)"
                     height="auto"
                     sx={{
                         aspectRatio:"1/1"
@@ -109,10 +98,39 @@ const Benefit = ({car}) => {
                 >
                     <GrLocation fontSize="3rem"/>
                 </Circle>
-                <Text size="md" textAlign="center">
-                    Flexible Pickup Location
-                </Text>
+                <Box px="1rem" w="100%">
+                    <Text as="b" fontSize="lg" textAlign="center">
+                        Value For Money
+                    </Text>
+                    <Text>
+                        Know exactly what you’re paying
+                    </Text>
+                </Box>
             </ChakraBox>
+            <ChakraBox variants={item}
+                display="flex"
+                alignItems="center"
+            >
+                <Circle 
+                    bg='red.200'
+                    width="clamp(100px,30%,100px)"
+                    height="auto"
+                    sx={{
+                        aspectRatio:"1/1"
+                    }}
+                >
+                    <TbZoomMoney fontSize="3rem"/>
+                </Circle>
+                <Box px="1rem" w="100%">
+                    <Text as="b" fontSize="lg" textAlign="center">
+                        Value For Money
+                    </Text>
+                    <Text>
+                        Know exactly what you’re paying
+                    </Text>
+                </Box>
+            </ChakraBox>
+
         </ChakraBox>
     </Box>
 
