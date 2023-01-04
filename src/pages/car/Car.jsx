@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+
 import {AiOutlineArrowRight} from 'react-icons/ai'
 import { motion, isValidMotionProp, delay } from 'framer-motion';
-import { Card, CardBody,Text,Image, CardFooter, Grid, GridItem,Button, Heading,shouldForwardProp,chakra, Container,Box, EASINGS, Center, ring} from '@chakra-ui/react'
-import { useState } from 'react'
+import {Text,Grid, GridItem,Button, Heading,shouldForwardProp,chakra, Container,useColorModeValue} from '@chakra-ui/react'
+
+import { useNavigate, useParams } from 'react-router-dom';
+import { ref,getMetadata} from 'firebase/storage';
+import {query,collection,getDocs,getDoc,doc} from 'firebase/firestore'
+
+import { storage } from '../../utils/firebaseConfig';
+import { db } from '../../utils/firebaseConfig';
+import ConfirmationModal from './ConfirmationModal';
 
 const ChakraBox = chakra(motion.div, {
     /**
@@ -10,132 +19,236 @@ const ChakraBox = chakra(motion.div, {
      */
     shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
   });
+  const ChakraImg = chakra(motion.img, {
+    /**
+     * Allow motion props and non-Chakra props to be forwarded.
+     */
+    shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
+  });
 
-const Car = ({car}) => {
+const Car = () => {
+    const navigate=useNavigate()
+    const params=useParams()
+    const carId=params.carId
+    const [carDetails,setCarDetails]=useState({})
+    
+
+    async function getCars(){
+        const docRef = doc(db, "cars",carId);
+        const docSnap = await getDoc(docRef);
+        
+        if (docSnap.exists()) {
+          setCarDetails({id:docSnap.id,...docSnap.data()})
+        } else {
+        
+          console.log("No such document!");
+        }
+    }
+
+    useEffect(()=>{
+        getCars()
+        return ()=>{
+
+        }
+    },[])
+  
+  
    
   return (
     <Container p="0">
-    <ChakraBox
+        <ChakraBox
+            overflow="hidden"
+            
 
-        height="100vh"
-    >
-          <ChakraBox
-            zIndex="1"
-            bg="gray.800"
-            initial={{
-                height:"0"
-            }}
-            animate={{
-                height:"20vh"
-            }}
-            transition={{
-                duration:.5
-            }}
-          />
-
-          <ChakraBox
-            position="relative"
-            display="grid"
-            gridTemplateRows="auto 100px"
-            bg="teal"
-           initial={{
-               height:"500px"
-           }}
-           animate={{
-               height:"80vh",
-           
-           }}
-           transition={{
-               duration:.5,
-             
-           }}
-          >
+        >
             <ChakraBox
-              
-                width="100vw"
-                position="relative"
+         
+                initial={{
+                    height:"30vh"
+                }}
+                animate={{
+                    height:"20vh"
+                }}
+                transition={{
+                    duration:.5
+                }}
+            />
 
+            <ChakraBox
+                bg={carDetails.bg}
+                display="flex"
+                flexDirection="column"
+                justifyContent="space-between"
+               
+                initial={{
+                    height:"calc(70vh - 60px)"
+                }}
+                animate={{
+                    height:"calc(80vh - 60px)",
                 
-            >
-                    <motion.img
-                        src={require("../../assets/images/axia-1.png")}
-                        alt="dasf"
-
-                        animate={
-                            {  
-                                position:"absolute",
-                                x:[100,100,0],
-                                y:[-100,-250,-250],
-                                scale:[1,1,0.8]
-                            }
-                        }
-                        transition={{
-                            duration:1,
-                            ease:"easeInOut"
-                        }}
-                       
-                       
-                      
-                    />
+                  
+                }}
+                transition={{
+                    delay:.5,
+                    duration:.5,
                     
-                <ChakraBox 
-                    initial={{
-                        y:260
+                }}
+            >
+                <ChakraBox
+                    width="100%"
+                    height="auto"
+                    position="relative"
 
+                    animate={
+                        {  
+                            height:"20vw"
+                           
+                        }
+                    }
+                    transition={{
+                      
+                    }}
+
+                    
+                >
+                    <ChakraImg
+                            src={carDetails.src}
+                            alt="dasf"
+                          
+
+                            animate={
+                                {  
+                                    y:[-100,-220,-220],
+                                    position:"absolute",
+                                    x:[50,50,0],
+                                    scale:[1.2,1.2,1]
+                                }
+                            }
+                            transition={{
+                                duration:1,
+                                ease:"easeInOut"
+                            }}
+                        
+                        
+                        
+                    />
+                        
+                        
+                </ChakraBox>
+                <ChakraBox 
+                    overflow="hidden"
+                    px="1rem"
+                  
+                    initial={{
+                        opacity:0
                     }}
                     animate={{
-                        y:100
+                        opacity:1
                     }}
                     transition={{
-                        duration:1
+                        delay:1,
+                        duration:.5
                     }}
-                   
+          
+                
                 >
-                    <Heading as="h2">
-                        perodua
+                    <Grid 
+                        w="100%"
+                        templateColumns="repeat(4,1fr)"
+                        gap="1rem"
+                        mb="1rem"
+               
+                    >
+                        <GridItem 
+                         bg='rgba(0,0,0,.2)'
+                         boxShadow="sm"
+                         height='auto'
+                         borderRadius="md"
+                         sx={{aspectRatio:'1/1'}}
+                        >
+                            auto
+                        </GridItem>
+                        <GridItem 
+                         bg='rgba(0,0,0,.2)'
+                         boxShadow="sm"
+                         height='auto'
+                         borderRadius="md"
+                         sx={{aspectRatio:'1/1'}}
+                        >
+                            auto
+                        </GridItem>
+                        <GridItem 
+                         bg='rgba(0,0,0,.2)'
+                         boxShadow="sm"
+                         height='auto'
+                         borderRadius="md"
+                         sx={{aspectRatio:'1/1'}}
+                        >
+                            {carDetails.transmission}
+                        </GridItem>
+
+                        <GridItem 
+                         bg='rgba(0,0,0,.2)'
+                         boxShadow="sm"
+                         height='auto'
+                         borderRadius="md"
+                         sx={{aspectRatio:'1/1'}}
+                        >
+                            15.47km/l
+                        </GridItem>
+                      
+                        
+                    </Grid>
+                    <Heading 
+                        as="h3"
+                        size="xl"
+                        textTransform="capitalize"
+                    >
+                        {carDetails.manufacturer}
                     </Heading>
+                    <Text  
+                        textTransform="capitalize"
+                        fontSize="xl"
+                    >
+                        {carDetails.model}
+                    </Text>
                     <Text>
-                        Axia 2022
+                        {carDetails.description}
                     </Text>
                 </ChakraBox>
-                    
-            </ChakraBox>
 
-            
-            <Grid   
-                templateColumns="3fr 2fr"
-                height="100%"
-             
-            > 
-                    <GridItem>
-                        <Text    
-                            height="100%"
-                            width="100%"
-                            padding=".5rem"
+                
+                <Grid  
+                    height="80px"
+                    w="100%"
+                    gridTemplateColumns={"3fr 3fr"}
+                > 
+                        <GridItem
+                            display="grid"
+                            placeContent="center"
                         >
-                            Rm 
-                            <Text as="span" fontWeight="bold">100</Text>
-                        </Text>
-                    </GridItem>
-                    <GridItem >
-                        <Button
-                        height="100%"
-                        width="100%"
-                        borderRadius="1rem 0 0 0"
-                        colorScheme="teal"
-                        
-                    >
-                        Book
-                        <AiOutlineArrowRight/>
-                        </Button>
-                    </GridItem>
-            </Grid>
-      
-            
-            
-          </ChakraBox>
-      
-    </ChakraBox>
+                            <Text as="b" >
+                                {`Rm${carDetails.rate} / day`}
+                            </Text>
+                        </GridItem>
+                        <GridItem >
+                            <Button
+                            width={"100%"}
+                            h="100%"
+                            borderRadius="1rem 0 0 0"
+                            colorScheme="yellow"
+                            // onClick={()=>navigate("/rent")}
+                            >   
+                                <ConfirmationModal/>
+                            </Button>
+                        </GridItem>
+                </Grid>
+        
+                
+                
+            </ChakraBox>
+        
+        </ChakraBox>
 
 
     </Container>
