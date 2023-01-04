@@ -1,17 +1,54 @@
-import { Box, Container, Grid, Heading} from '@chakra-ui/react'
-import React from 'react'
+import { Box, Button, Container, Divider, Grid, GridItem, Heading,Menu,MenuButton,MenuItem,MenuList} from '@chakra-ui/react'
+import React, { useState } from 'react'
 import CarList from '../../components/CarList'
+import Filter from './Filter'
+
+import {TbSortAscending} from 'react-icons/tb'
+import { useCarData } from '../../context/carContext'
 
 const Cars = () => {
-  const filterButtonStyle={
-    height:"30px",
-    padding:"0 1rem",
-    display:"grid",
-    placeContent:"center",
-    borderRadius:"1rem",
-    margin:"0 .2rem",
-    bg:"blue.300"
+
+  const {cars}=useCarData()
+
+  const [filter,setFilter]=useState({
+    all:true,
+    available:false,
+    unavailable:false,
+  })
+
+  
+  
+  function getfilteredCars(){
+    let filterVal
+    Object.keys(filter).map(key=>{
+      if(filter[key]){
+        filterVal=key
+      }
+    })
+
+    let _cars
+
+    switch (filterVal) {
+      case "all":
+        _cars=cars
+        break;
+      case "available":
+        _cars=cars.filter(car=>!car.isRented)
+        break;
+        case "unavailable":
+        _cars=cars.filter(car=>car.isRented)
+        break;
+      default:
+        _cars=cars
+        break;
+    }
+
+    return (_cars)
   }
+
+  const filteredCars=getfilteredCars()
+
+  
 
 
 
@@ -20,30 +57,42 @@ const Cars = () => {
       <Heading>
         Discover car
       </Heading>
-      <Box
-        width="100vw"
-        display="flex"
-        alignItems="flex-start"
-        padding="0.5rem 1rem 0 1rem"
+      <Grid 
+        w="100%"
+        templateColumns="1fr 50px"
+        
       >
-        <Box 
-          sx={filterButtonStyle}
-        >dsfsdf
-        </Box>
-        <Box 
-          sx={filterButtonStyle}
-        >All
-        </Box>
-        <Box 
-          sx={filterButtonStyle}
-        >All
-        </Box>
-        <Box 
-          sx={filterButtonStyle}
-        >All
-        </Box>
-      </Box>
-      <CarList/>
+        <GridItem overflow="scroll">
+          <Filter filter={filter} setFilter={setFilter}/>
+        </GridItem>
+        <GridItem 
+           display="flex"
+           justifyContent="flex-end"
+           alignItems="center"
+           maxW="100%"
+        >
+        
+          <Menu >
+            <MenuButton 
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              as={Button} 
+              bg="transparent"
+              fontSize="2rem"
+              p="0"
+             
+            >
+              {<TbSortAscending margin="auto"/>}
+            </MenuButton>
+            <MenuList>
+              <MenuItem>Rate</MenuItem>
+              <MenuItem>Rate</MenuItem>
+            </MenuList>
+          </Menu>
+        </GridItem>
+      </Grid>
+      <CarList carList={filteredCars}/>
     </Box>
   )
 }

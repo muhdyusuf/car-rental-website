@@ -17,13 +17,19 @@ export default function Login() {
   const { register, handleSubmit, formState: { errors} } = useForm({
     resolver:yupResolver(schema)
   });
-  const onSubmit = data => console.log([data,errors]);
+ 
 
   const [loading,setLoading]=useState(false)
   const [show,setShow]=useState(false)
 
   const {signUp}=useAuth()
-  
+
+   const onSubmit = async data =>{
+    if(errors)return
+
+    console.log(data)
+    
+  };
   
   return (
     <Container

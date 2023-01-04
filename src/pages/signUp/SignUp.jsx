@@ -18,20 +18,24 @@ export default function SignUp() {
   const { register, handleSubmit, formState: { errors} } = useForm({
     resolver:yupResolver(schema)
   });
-  const onSubmit = data => console.log([data,errors]);
+  
   
   const [loading,setLoading]=useState(false)
   const [show,setShow]=useState(false)
   
   const {signUp,user}=useAuth()
   const navigate=useNavigate()
+
   useEffect(()=>{
     if(user){
-        navigate("/*")
+        navigate("/")
     }
   },[])
   
-  
+  const onSubmit = async data =>{
+    if(Object.keys(errors).length>0)return
+    signUp(data.email,data.password)
+  };
   return (
     <Container
         h="calc(100vh - 60px)"

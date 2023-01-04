@@ -1,4 +1,4 @@
-import { Box, chakra, Circle, Container, Grid, GridItem, Heading, shouldForwardProp, Switch, Text, useColorMode} from '@chakra-ui/react'
+import { Box, chakra, Circle, Container, Grid, GridItem, Heading, Image, shouldForwardProp, Switch, Text, useColorMode} from '@chakra-ui/react'
 import React from 'react'
 import {AiOutlineSetting} from 'react-icons/ai'
 import { redirect, useNavigate } from 'react-router'
@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import { isValidMotionProp, motion } from 'framer-motion'
 
 import {MdOutlineNightlight,MdOutlineLightMode} from 'react-icons/md'
+import RentedCar from './RentedCar'
 
 const ChakraBox = chakra(motion.div, {
     /**
@@ -19,15 +20,18 @@ function User() {
     const {colorMode,toggleColorMode}=useColorMode()
     const {user}=useAuth()
     const navigate=useNavigate()
+
+
+
     useEffect(() => {
-      redirect("/login")
       return () => {
       }
     }, [])
     
+
+    
   return (
     <Container 
-       
         p="0"
     >
         <Grid
@@ -50,7 +54,7 @@ function User() {
                     }}
                     top
                 >
-                
+                    <Image src={user.photoURL}/>
                 </Circle>
                 <Heading 
                     as="h2" 
@@ -60,7 +64,7 @@ function User() {
                     display="flex"
                     alignItems="center"
                 >
-                    Username
+                    {user.uid}
                 </Heading>
             </GridItem>
             <GridItem 
@@ -84,71 +88,37 @@ function User() {
             gridTemplateColumns="1fr"
             rowGap="1rem"
         >
+            <RentedCar id={user.uid}/>
+           
             <Grid
-               
-                gap="1rem"
                 width="100%"
                 border=".2rem solid black"
-                p=".5rem"
                 borderRadius="1rem"
-                bg="yellow.300"
+                p=".5rem"
+                
             >
                 <GridItem>
-                    <Heading as="h2">Order Detail</Heading>
+                    <Heading>
+                        Profile
+                    </Heading>
                 </GridItem>
-                <GridItem
-                    display="flex"
-                >
-                    <Box 
-                        width="40%"
-                        height="auto"
-                        bg="red.400"
-                        sx={{
-                            aspectRatio:"1/1"
-                        }}
-                    >
-
-                    </Box>
-                    <Box marginLeft="1rem">
-                        <Text>
-                            Perodua Alza
-                        </Text>
-                        <Text>
-                            Order ends
-                        </Text>
-                        <Box display="flex">
-                            <Text>12<Text as="span">h</Text></Text>
-                            <Text>00<Text as="span">m</Text></Text>
-                        </Box>
-                    </Box>
-                </GridItem>
-                
-                
-                
-                
-            </Grid>
-            <Grid
-                width="100%"
-                border=".2rem solid black"
-                borderRadius="1rem"
-                p=".5rem"
-                
-            >
                 <GridItem as='h3'>
-                    Profile
+                    {user.emailVerified?"verified":"not"}
                 </GridItem>
                 <GridItem>
-                    sdasdsd
+                    {user.email}
                 </GridItem>
                 
-
-
             </Grid>
-
-
-
-
-
+            <Grid 
+             p=".5rem"
+            >
+                <GridItem>
+                    <Heading>
+                        Setting
+                    </Heading>
+                </GridItem>
+            </Grid>
 
 
 

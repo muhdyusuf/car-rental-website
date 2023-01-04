@@ -1,5 +1,5 @@
 import React,{useEffect} from "react";
-import { doc } from "firebase/firestore";
+import { collection, doc, getDocs, query } from "firebase/firestore";
 import {createContext, useContext, useState } from "react";
 import { db } from "../utils/firebaseConfig";
 import { getDoc } from "firebase/firestore";
@@ -14,21 +14,17 @@ const CarProvider = ({children}) => {
     const [cars,setCars]=useState([])
 
     async function getCars(){
-        const docRef = doc(db, "cars");
-        const docSnap = await getDoc(docRef);
-        
-        
-        if (docSnap.exists()) {
-          setCars(docSnap.map(doc=>({
-            id:doc.id,
-            ...doc.data()
-          })
-        ))
-        } else {
-        
-          console.log("No such document!");
-        }
+      const q = query(collection(db, "cars"))
+      let _cars=[]
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        _cars.push({id:doc.id,...doc.data()})
+      });
+  
+      setCars(_cars)
+  
     }
+    
 
     async function getCar(carId){
         
@@ -55,11 +51,8 @@ const CarProvider = ({children}) => {
 
 
     useEffect(() => {
-      
-    
-      return () => {
-        
-      }
+      getCars()
+     
     }, [])
     
 
@@ -67,7 +60,9 @@ const CarProvider = ({children}) => {
 
 
 
-    const value={}
+    const value={
+      cars
+    }
 
   return (
     <CarContext.Provider

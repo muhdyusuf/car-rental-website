@@ -13,25 +13,26 @@ const AuthProvider = ({children}) => {
     const [loading,setLoading]=useState(false)
 
 
-    // useEffect(() => {
-    //    const unsub=onAuthStateChanged(auth, (user) => {
-    //       if (user) {
-    //         setCurrentUser(user)
-    //         setLoading(false)
-    //       } else {
-    //         setCurrentUser(null)
-    //         setLoading(false)
-    //       }
-    //     })
+    useEffect(() => {
+       const unsub=onAuthStateChanged(auth, (user) => {
+          if (user) {
+            setCurrentUser(user)
+            setLoading(false)
+          } else {
+            setCurrentUser(null)
+            setLoading(false)
+          }
+        })
          
       
-    //   }, [])
+      }, [])
 
       function signUp(email,password){
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
+                console.log(userCredential)
                 // ...
             })
             .catch((error) => {
@@ -62,7 +63,9 @@ const AuthProvider = ({children}) => {
     
 
     const value={
-      user:currentUser
+      user:currentUser,
+      signUp,
+      signIn,
     }
   return (
     <AuthContext.Provider value={value}>

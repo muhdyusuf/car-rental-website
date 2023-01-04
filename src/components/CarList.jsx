@@ -7,7 +7,7 @@ import CarCard from './CarCard'
 import {v4 as uuidv4} from 'uuid'
 
 
-const CarList = () => {
+const CarList = ({carList=[]}) => {
     const [availableCar,setAvailableCar]=useState([])
 
   async function getCars(){
@@ -33,7 +33,7 @@ const CarList = () => {
           templateColumns="1fr"
           gap="1rem"
       >
-          {availableCar.map(car=>{
+          {carList.map(car=>{
           return(
               <GridItem key={uuidv4()} >
                   <CarCard car={car}/>
